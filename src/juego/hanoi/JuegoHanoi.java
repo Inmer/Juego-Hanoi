@@ -5,6 +5,8 @@
  */
 package juego.hanoi;
 
+import java.util.*;
+
 /**
  *
  * @author inmer
@@ -15,7 +17,27 @@ public class JuegoHanoi {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Scanner h = new Scanner(System.in);
+        HanoiCodigo hc = new HanoiCodigo ();
+       
+        System.out.println("**Para salir ingrese " + "0**");        
+        System.out.print("Ingrese el numero de aros: ");
+        int n;
+        n= h.nextInt();        
+        
+        if(n!=0){        
+        
+        hc.hanoi(n, 1, 2, 3);        
+    }   else if (n==0){
+        
+        System.out.print("Gracias por jugar " + "Hanoi \n");
+        
+    }
+        
+    }
+        
+        
     }
     
-}
+
