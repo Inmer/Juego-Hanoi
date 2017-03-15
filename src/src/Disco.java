@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import juego.hanoi.Juego;
 
@@ -27,7 +28,7 @@ import juego.hanoi.Juego;
  */
 public class Disco extends JLabel implements MouseListener, MouseMotionListener, ActionListener{
 
-    
+    private Point inicio;
     //identifica el disco
     private String key;
     //posicion de la imagen
@@ -44,10 +45,11 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
     private int nuevo_X = -1;
     private int nuevo_Y = -1;
     private int torre = 1;
-    JPanel jpanel = new JPanel();
-    JLabel texto = new JLabel();
+    private JPanel jpanel = new JPanel();
+    private JLabel texto = new JLabel();
+    private int discos;
     
-    public Disco(String key, JPanel jpanel, JLabel texto){
+    public Disco(String key, JPanel jpanel, JLabel texto, int discos){
     
         this.key = key;
         this.setToolTipText(key);
@@ -58,9 +60,11 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
         this.setText("");
         this.setVisible(true);
         this.setLocation(posicion);
+        this.inicio = posicion;
         this.setName(key);
         this.jpanel = jpanel;
         this.texto = texto;
+        this.discos = discos;
         //
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
@@ -82,18 +86,121 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
     public void mouseClicked(MouseEvent e) {}
 
     @Override
-    public void mousePressed(MouseEvent e) {    
+    public void mousePressed(MouseEvent e) {  
+        //si no hay nada arriba deja mover el disco
+        Point aux = this.getLocation();
+        
+        if(this.jpanel.getComponentAt(aux.x, aux.y-34).size().height != 34){
+        
         this.start_drag = getScreenLocation(e);
         this.start_lock = this.getLocation();
+        this.inicio = this.getLocation();
+        }
+        
     }
 //cuando se suelta el mouse
+    public void caer(){
+    
+        //hace caer los discos en su lugar
+        int aux = 355;
+        Dimension fondo = new Dimension(600,400);
+        Dimension p = new Dimension(200,34);
+        int posicion1 =0;
+        int posicion2 =0;
+        int posicion3 =0;
+        //existe una variable inicio que servira para regresar el dico cuando el de abajo sea mayor
+        
+        //cae en torre 1
+        if (this.getLocation().x > -100 && this.getLocation().x < 175){         
+    
+            
+            if (this.jpanel.getComponentAt(0, 199).size().height == 34) {
+                 this.setLocation(0, 165);
+
+             } else if (this.jpanel.getComponentAt(0, 233).size().height == 34) {
+                 this.setLocation(0, 199);
+
+             }else if (this.jpanel.getComponentAt(0, 267).size().height == 34) {
+                 this.setLocation(0, 233);
+
+             }else if (this.jpanel.getComponentAt(0, 301).size().height == 34) {
+                 this.setLocation(0, 267);
+
+             }else if (this.jpanel.getComponentAt(0, 335).size().height == 34) {
+                 this.setLocation(0, 301);
+
+             }else if (this.jpanel.getComponentAt(0, 335).size().height == 400) {
+                 this.setLocation(0, 335);
+
+             }
+        }
+        
+        //cae en torre2
+         if (this.getLocation().x > 175 && this.getLocation().x < 275){             
+          
+           
+             if (this.jpanel.getComponentAt(200, 199).size().height == 34) {
+                 this.setLocation(200, 165);
+
+             } else if (this.jpanel.getComponentAt(200, 233).size().height == 34) {
+                 this.setLocation(200, 199);
+
+             }else if (this.jpanel.getComponentAt(200, 267).size().height == 34) {
+                 this.setLocation(200, 233);
+
+             }else if (this.jpanel.getComponentAt(200, 301).size().height == 34) {
+                 this.setLocation(200, 267);
+
+             }else if (this.jpanel.getComponentAt(200, 335).size().height == 34) {
+                 this.setLocation(200, 301);
+
+             }else if (this.jpanel.getComponentAt(200, 335).size().height == 400) {
+                 this.setLocation(200, 335);
+
+             }
+
+             System.out.println(this.jpanel.getComponentAt(200, 335).size());
+             
+             
+             
+             
+           // System.out.println(this.jpanel.getComponentAt(0, 335).size());
+            //System.out.println(this.jpanel.getComponentAt(200, 335).size());
+        }
+         
+         //cae en torre 3
+         if (this.getLocation().x > 275 && this.getLocation().x < 500){
+            
+            
+            if (this.jpanel.getComponentAt(400, 199).size().height == 34) {
+                 this.setLocation(400, 165);
+
+             } else if (this.jpanel.getComponentAt(400, 233).size().height == 34) {
+                 this.setLocation(400, 199);
+
+             }else if (this.jpanel.getComponentAt(400, 267).size().height == 34) {
+                 this.setLocation(400, 233);
+
+             }else if (this.jpanel.getComponentAt(400, 301).size().height == 34) {
+                 this.setLocation(400, 267);
+
+             }else if (this.jpanel.getComponentAt(400, 335).size().height == 34) {
+                 this.setLocation(400,301);
+
+             }else if (this.jpanel.getComponentAt(400, 335).size().height == 400) {
+                 this.setLocation(400, 335);
+
+             }
+        }
+    }
+    
     @Override
     public void mouseReleased(MouseEvent e) {      
        
        
         nuevo_X = (this.getLocation().x);
         nuevo_Y = (this.getLocation().y);
-        this.setLocation(nuevo_X, nuevo_Y);
+        
         
         //cambia los movimietnos
         Juego panel = new Juego();
@@ -104,48 +211,53 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
         this.texto.setText(String.valueOf(conteo));
         
         
-        //hace caer los discos en su lugar
-        int aux = 355;
-        Dimension fondo = new Dimension(200,34);
+        caer();
+        
+        //gana si hay algo en el tope de la torre 3 dependiendo de la cantidad de discos
+        
+        ganar();
         
         
-        if (this.getLocation().x > -100 && this.getLocation().x < 175){         
+    }
     
-            
-            this.setLocation(0,335);
+    public void ganar(){
+    
+        //gana si hay algo en el tope de la torre 3 dependiendo de la cantidad de discos
+        
+        switch (this.discos) {
+            case 6:
+                if (this.jpanel.getComponentAt(400, 165).size().height == 34) {
+                    JOptionPane.showMessageDialog(null, "Ganaste ");
+                }
+                break;
+            case 5:
+                if (this.jpanel.getComponentAt(400, 199).size().height == 34) {
+                    JOptionPane.showMessageDialog(null, "Ganaste ");
+                }
+                break;
+            case 4:
+                if (this.jpanel.getComponentAt(400, 233).size().height == 34) {
+                    JOptionPane.showMessageDialog(null, "Ganaste ");
+                }
+                break;
+            case 3:
+                if (this.jpanel.getComponentAt(400, 267).size().height == 34) {
+                    JOptionPane.showMessageDialog(null, "Ganaste ");
+                }
+                break;
+
         }
-        
-        
-         if (this.getLocation().x > 175 && this.getLocation().x < 275){
-            
-             if(this.jpanel.getComponentAt(200, 335).size() != fondo)
-             {
-                this.setLocation(200,335); 
-                
-             }else if(this.jpanel.getComponentAt(200, 335).size() == fondo)
-             {
-                this.setLocation(200,301);   
-             } 
-             
-             
-            System.out.println(this.jpanel.getComponentAt(0, 335).size());
-            System.out.println(this.jpanel.getComponentAt(200, 335).size());
-        }
-         
-         if (this.getLocation().x > 275 && this.getLocation().x < 500){
-            
-            
-            this.setLocation(400,335);
-        }
-        
-        
-        
         
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
+         //si no hay nada arriba deja mover el disco
+        Point aux = this.getLocation();
+        
+        if(this.jpanel.getComponentAt(aux.x, aux.y-34).size().height != 34){
         this.setBorder(BorderFactory.createLineBorder(new java.awt.Color(200,0,51),1));
+        }
     }
 
     @Override
@@ -157,21 +269,36 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        Point current = this.getScreenLocation(e);
+        //si no hay nada arriba deja mover el disco
+        Point aux = this.getLocation();
+        
+        if(this.jpanel.getComponentAt(aux.x, aux.y-34).size().height != 34){
+            Point current = this.getScreenLocation(e);
         offset = new Point((int) current.getX() - (int) start_drag.getX(), (int) current.getY() - (int) start_drag.getY());
         Point new_Location = new Point((int) (this.start_lock.getX() + offset.getX()), (int) (this.start_lock.getY() + offset.getY()));
         this.setLocation(new_Location);
+        
+        }
+        
+        
+        
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {}
 
     private Point getScreenLocation(MouseEvent evt) {
-
+//si no hay nada arriba deja mover el disco
+        Point aux = this.getLocation();
+        
+        if(this.jpanel.getComponentAt(aux.x, aux.y-34).size().height != 34){
+        
         Point cursor = evt.getPoint();
         Point target_location = this.getLocationOnScreen();
         return new Point((int) (target_location.getX() + cursor.getX()),
                 (int) (target_location.getY() + cursor.getY()));
+        }else{ return null;}
+       
     }
 
     @Override

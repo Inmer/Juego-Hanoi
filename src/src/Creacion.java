@@ -58,7 +58,7 @@ public class Creacion {
         
         
         //Crea una nueva instancia de Disco
-        Disco tmp = new Disco(nombre, contenedor, texto);
+        Disco tmp = new Disco(nombre, contenedor, texto, discos);
         //ingresa la imagen correcta
         tmp.setIcon(new ImageIcon(getClass().getResource("/img/disco "+ ancho +".png")));
         //pone el disco donde corresponde para iniciar

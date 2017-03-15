@@ -59,6 +59,7 @@ public class Juego extends javax.swing.JFrame {
         
         creacion = new Creacion( this.jPanel,this.txtMovimientos); 
         
+
         String aux = (String) opDiscos.getSelectedItem();
         int discos = Integer.valueOf(aux);        
         
