@@ -11,12 +11,16 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.paint.Color;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import src.Creacion;
 import src.Disco;
 import src.Imagen;
+import src.MatrizTorres;
 import src.Solucion;
 
 
@@ -33,19 +37,39 @@ public class Juego extends javax.swing.JFrame {
      * Creates new form Juego
      */
     
+    private Disco disco;
     private Creacion creacion;
-    private DefaultListModel listModel = new DefaultListModel();
+    private int[] torres;
+    //contador interno de dsicos
+    private int contador = 0;
+    //los discos se almacenan en un map
+    private Map map = new HashMap();
+
+    public int[] getTorres() {
+        return torres;
+    }
+
+    public void setTorres(int[] torres) {
+        this.torres = torres;
+    }
     
     public Juego() {    
         
         initComponents();
         
-        creacion = new Creacion( this.jPanel, this.listModel ); 
+        creacion = new Creacion( this.jPanel,this.txtMovimientos); 
         
         String aux = (String) opDiscos.getSelectedItem();
-        int discos = Integer.valueOf(aux);
+        int discos = Integer.valueOf(aux);        
         
-        creacion.Nuevo_Objeto(discos);
+        
+        creacion.ponerDiscos(discos);
+        
+        
+        
+        torres = new int[discos];
+        
+        this.setTorres(torres);
         
         //dibuja las torres
         Imagen imagen = new Imagen();
@@ -151,11 +175,12 @@ public class Juego extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtMovimientosNecesarios)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addGap(68, 68, 68))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(163, 163, 163)
-                        .addComponent(jLabel4)))
-                .addGap(68, 68, 68))
+                        .addComponent(jLabel4)
+                        .addGap(34, 34, 34))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(139, 139, 139)
                 .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,6 +210,11 @@ public class Juego extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void caer(Disco disco,int aux){
+        
+        
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        
         
@@ -199,11 +229,12 @@ public class Juego extends javax.swing.JFrame {
         
         txtMovimientosNecesarios.setText(String.valueOf(movimientos));
         
+        System.out.println(jPanel.getComponentAt(0, 335).size());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-      
+        
         
        //limpia el panel
         jPanel.removeAll();
@@ -211,13 +242,15 @@ public class Juego extends javax.swing.JFrame {
         
        
         
-        creacion = new Creacion( this.jPanel, this.listModel ); 
+        creacion = new Creacion( this.jPanel,this.txtMovimientos); 
+        
         
         String aux = (String) opDiscos.getSelectedItem();
         int discos = Integer.valueOf(aux);
         
-        creacion.Nuevo_Objeto(discos);
+        creacion.ponerDiscos(discos);
         jPanel.repaint();
+        
         
          //dibuja las torres
         Imagen imagen = new Imagen();
@@ -225,7 +258,6 @@ public class Juego extends javax.swing.JFrame {
         jPanel.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    
     
     
     
@@ -276,9 +308,9 @@ public class Juego extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel;
+    public javax.swing.JPanel jPanel;
     private javax.swing.JComboBox<String> opDiscos;
-    private javax.swing.JLabel txtMovimientos;
+    public javax.swing.JLabel txtMovimientos;
     private javax.swing.JLabel txtMovimientosNecesarios;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,44 +9,56 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
  *
  * @author dieez
  */
+
+
 public class Creacion {
     
     //contador interno de dsicos
     private int contador = 0;
     //los discos se almacenan en un map
     private Map map = new HashMap();
+    private JLabel texto = new JLabel();
     
     private JPanel contenedor;
-    //default list model
-    private DefaultListModel listModel;
-    
     /**Costructor de clase
      * @param jPanel donde se colocan los discos
      * @param DfaultListModel
      */
     
-    public Creacion(JPanel jpanel, DefaultListModel listModel) {
+    public Creacion(JPanel jpanel,JLabel texto ) {
         this.contenedor = jpanel;
-        this.listModel = listModel;
+        this.texto = texto;
     }
     
-    public void Nuevo_Objeto(int discos)
+    public void ponerDiscos(int discos)
     {
         
-        int aux = discos;
+        
         int ancho = discos;
         int auxY = 335;
         
-        for(int i = discos; i > 0; i--)
+        
+        String nombre;
+        MatrizTorres torre = new MatrizTorres(discos);
+        
+        int[] torres = torre.getTorres();
+        
+        for(int i = discos; i != 0; i--)
         {            
-        //Crea una nueva instancia de "MiObjeto"
-        Disco tmp = new Disco( "Objeto " + this.contador );
+         
+        nombre  = "disco" + ancho;    
+            
+        
+        
+        //Crea una nueva instancia de Disco
+        Disco tmp = new Disco(nombre, contenedor, texto);
         //ingresa la imagen correcta
         tmp.setIcon(new ImageIcon(getClass().getResource("/img/disco "+ ancho +".png")));
         //pone el disco donde corresponde para iniciar
