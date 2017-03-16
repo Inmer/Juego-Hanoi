@@ -5,22 +5,13 @@
  */
 package juego.hanoi;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import javafx.scene.paint.Color;
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import java.util.Map;;
 import src.Creacion;
 import src.Disco;
 import src.Torre;
-import src.MatrizTorres;
 import src.Solucion;
 
 
@@ -111,7 +102,6 @@ public class Juego extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtMovimientos = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -149,13 +139,6 @@ public class Juego extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel4.setText("Torres de Hanoi");
 
-        jButton1.setText("Obtener");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jButton2.setText("Reset");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,14 +167,11 @@ public class Juego extends javax.swing.JFrame {
                         .addGap(114, 114, 114)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtMovimientosNecesarios)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
-                        .addGap(68, 68, 68))
+                        .addComponent(txtMovimientosNecesarios))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(163, 163, 163)
-                        .addComponent(jLabel4)
-                        .addGap(34, 34, 34))))
+                        .addComponent(jLabel4)))
+                .addGap(159, 159, 159))
             .addGroup(layout.createSequentialGroup()
                 .addGap(139, 139, 139)
                 .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,11 +191,10 @@ public class Juego extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtMovimientosNecesarios)
                     .addComponent(jLabel3)
-                    .addComponent(txtMovimientos)
-                    .addComponent(jButton1))
+                    .addComponent(txtMovimientos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -226,10 +205,8 @@ public class Juego extends javax.swing.JFrame {
         
     }
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        //da como resultado los movimentos necesarios para la solucion
         String aux = (String) opDiscos.getSelectedItem();
         ArrayList<String> lista = new ArrayList<String>();
         int discos = Integer.valueOf(aux);
@@ -240,13 +217,6 @@ public class Juego extends javax.swing.JFrame {
         
         txtMovimientosNecesarios.setText(String.valueOf(movimientos));
         
-        System.out.println(jPanel.getComponentAt(0, 335).size());
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-        
-        
        //limpia el panel
         jPanel.removeAll();
         jPanel.repaint();
@@ -256,8 +226,7 @@ public class Juego extends javax.swing.JFrame {
         creacion = new Creacion( this.jPanel,this.txtMovimientos, this.txtMovimientosNecesarios); 
         
         
-        String aux = (String) opDiscos.getSelectedItem();
-        int discos = Integer.valueOf(aux);
+       
         
         creacion.ponerDiscos(discos);
         jPanel.repaint();
@@ -313,7 +282,6 @@ public class Juego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

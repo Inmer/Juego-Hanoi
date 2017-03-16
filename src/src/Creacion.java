@@ -48,9 +48,6 @@ public class Creacion {
         
         
         String nombre;
-        MatrizTorres torre = new MatrizTorres(discos);
-        
-        int[] torres = torre.getTorres();
         
         for(int i = discos; i != 0; i--)
         {            
