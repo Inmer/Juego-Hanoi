@@ -20,7 +20,7 @@ public class JuegoHanoi {
         
         Scanner h = new Scanner(System.in);
         HanoiCodigo hc = new HanoiCodigo ();
-       
+        
         System.out.println("**Para salir ingrese " + "0**");        
         System.out.print("Ingrese el numero de aros: ");
         int n;

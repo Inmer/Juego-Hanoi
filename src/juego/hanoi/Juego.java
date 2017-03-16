@@ -35,6 +35,7 @@ public class Juego extends javax.swing.JFrame {
     private int contador = 0;
     //los discos se almacenan en un map
     private Map map = new HashMap();
+    public static int[][] puntuacionList = new int[5][2];
 
     public int[] getTorres() {
         return torres;
@@ -44,6 +45,63 @@ public class Juego extends javax.swing.JFrame {
         this.torres = torres;
     }
     
+    /**
+     *
+     * @param cantMov recibe cantidad de movimientos
+     * @param cantDiscos recibe cantidad de discos
+     */
+    public void puntMax(int cantMov, int cantDiscos){
+        boolean habiaVacio = false;
+        for(int i = 0; i<5 ; i++){
+            if (puntuacionList[i][0] == 0){
+                puntuacionList[i][0] = cantMov;
+                puntuacionList[i][1] = cantDiscos;
+                habiaVacio = true;
+                break;
+            }else if (puntuacionList[i][1] == cantDiscos){
+                if (cantMov  < puntuacionList[i][0]){
+                    int[] temp = new int[2];
+                    temp[0] = puntuacionList[i][0];
+                    temp[1] = puntuacionList[i][1];
+                    puntuacionList[i][0] = cantMov;
+                    puntuacionList[i][1] = cantDiscos;
+                    if(i<4){
+                        int[] temp2 = new int[2];
+                        temp2[0] = puntuacionList[i+1][0];
+                        temp2[1] = puntuacionList[i+1][1];
+                        puntuacionList[i+1][0] = temp[0];
+                        puntuacionList[i+1][1] = temp[1];
+                    }
+                    habiaVacio = true;
+                    break;
+                    }
+                else {
+                    if(i<4 && puntuacionList[i+1][0] == 0){
+                        puntuacionList[i+1][0] = cantMov;
+                        puntuacionList[i+1][1] = cantDiscos;
+                        habiaVacio = true;
+                        break;
+                    }
+                    }
+                }
+        }
+        if (habiaVacio == false){
+            for(int i = 0; i<5 ; i++){
+            if (puntuacionList[i][1] == cantDiscos){
+                if (puntuacionList[i][0] < cantMov){
+                    puntuacionList[i][0] = cantMov;
+                    puntuacionList[i][1] = cantDiscos;
+                    break;
+                    }
+                }
+            }
+        }       
+        
+    }
+    
+    public void actualizarPunt(){
+        punt1Lbl.setText("");
+    }
     public Juego() {    
         
         initComponents();
@@ -103,6 +161,14 @@ public class Juego extends javax.swing.JFrame {
         txtMovimientos = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        punt1Lbl = new javax.swing.JLabel();
+        punt2Lbl = new javax.swing.JLabel();
+        punt3Lbl = new javax.swing.JLabel();
+        punt4Lbl = new javax.swing.JLabel();
+        punt5Lbl = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,12 +212,33 @@ public class Juego extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Puntuciones maximas:");
+
+        jLabel6.setText("(Menos movimientos)");
+
+        punt1Lbl.setText("1.");
+
+        punt2Lbl.setText("2.");
+
+        punt3Lbl.setText("3.");
+
+        punt4Lbl.setText("4.");
+
+        punt5Lbl.setText("5.");
+
+        jButton1.setText("Mostrar puntuaciones");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(122, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -175,15 +262,44 @@ public class Juego extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(139, 139, 139)
                 .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(punt1Lbl)
+                    .addComponent(punt2Lbl)
+                    .addComponent(punt3Lbl)
+                    .addComponent(punt4Lbl)
+                    .addComponent(punt5Lbl)
+                    .addComponent(jButton1))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addGap(42, 42, 42)
-                .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel5)
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel6)
+                        .addGap(8, 8, 8)
+                        .addComponent(punt1Lbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(punt2Lbl)
+                        .addGap(5, 5, 5)
+                        .addComponent(punt3Lbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(punt4Lbl)
+                        .addGap(8, 8, 8)
+                        .addComponent(punt5Lbl)
+                        .addGap(31, 31, 31)
+                        .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(opDiscos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,6 +354,16 @@ public class Juego extends javax.swing.JFrame {
         jPanel.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        punt1Lbl.setText("1.Mov. " + puntuacionList[0][0] + " y " + puntuacionList[0][1] + " Discos");
+        punt2Lbl.setText("2.Mov. " + puntuacionList[1][0] + " y " + puntuacionList[1][1] + " Discos");
+        punt3Lbl.setText("3.Mov. " + puntuacionList[2][0] + " y " + puntuacionList[2][1] + " Discos");
+        punt4Lbl.setText("4.Mov. " + puntuacionList[3][0] + " y " + puntuacionList[3][1] + " Discos");
+        punt5Lbl.setText("5.Mov. " + puntuacionList[4][0] + " y " + puntuacionList[4][1] + " Discos");
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
     
     
@@ -282,13 +408,21 @@ public class Juego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     public javax.swing.JPanel jPanel;
     private javax.swing.JComboBox<String> opDiscos;
+    private javax.swing.JLabel punt1Lbl;
+    private javax.swing.JLabel punt2Lbl;
+    private javax.swing.JLabel punt3Lbl;
+    private javax.swing.JLabel punt4Lbl;
+    private javax.swing.JLabel punt5Lbl;
     public javax.swing.JLabel txtMovimientos;
     private javax.swing.JLabel txtMovimientosNecesarios;
     // End of variables declaration//GEN-END:variables

@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -49,6 +50,7 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
     private int discos;
     private int abajo;
     private int arriba;
+    
     
     public Disco(String key, JPanel jpanel, JLabel texto, int discos, JLabel solucion){
     
@@ -391,6 +393,8 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
         
     }
     
+    
+    
     public void ganar(){
     
         String txt = this.texto.getText();
@@ -398,6 +402,7 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
         
         String txt2 = this.solucion.getText();
         int solucion = Integer.valueOf(txt);
+        Juego juego = new Juego();
         
         //gana si hay algo en el tope de la torre 3 dependiendo de la cantidad de discos
         
@@ -409,6 +414,7 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
                     if (movidas == solucion){
                      JOptionPane.showMessageDialog(null, "Juego perfecto");
                     }
+                    juego.puntMax(movidas, discos);
                     
                 }
                 break;
@@ -418,6 +424,7 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
                     if (movidas == solucion){
                      JOptionPane.showMessageDialog(null, "Juego perfecto");
                     }
+                    juego.puntMax(movidas, discos);
                 }
                 break;
             case 4:
@@ -426,6 +433,7 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
                     if (movidas == solucion){
                      JOptionPane.showMessageDialog(null, "Juego perfecto");
                     }
+                    juego.puntMax(movidas, discos);
                 }
                 break;
             case 3:
@@ -434,6 +442,7 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
                     if (movidas == solucion){
                      JOptionPane.showMessageDialog(null, "Juego perfecto");
                     }
+                    juego.puntMax(movidas, discos);
                 }
                 break;
 
