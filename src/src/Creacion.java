@@ -25,6 +25,7 @@ public class Creacion {
     //los discos se almacenan en un map
     private Map map = new HashMap();
     private JLabel texto = new JLabel();
+    private JLabel solucion = new JLabel();
     
     private JPanel contenedor;
     /**Costructor de clase
@@ -32,9 +33,10 @@ public class Creacion {
      * @param DfaultListModel
      */
     
-    public Creacion(JPanel jpanel,JLabel texto ) {
+    public Creacion(JPanel jpanel,JLabel texto, JLabel solucion) {
         this.contenedor = jpanel;
         this.texto = texto;
+        this.solucion = solucion;
     }
     
     public void ponerDiscos(int discos)
@@ -53,12 +55,12 @@ public class Creacion {
         for(int i = discos; i != 0; i--)
         {            
          
-        nombre  = "disco" + ancho;    
+        nombre  = String.valueOf(ancho);    
             
         
         
         //Crea una nueva instancia de Disco
-        Disco tmp = new Disco(nombre, contenedor, texto, discos);
+        Disco tmp = new Disco(nombre, contenedor, texto, discos, solucion);
         //ingresa la imagen correcta
         tmp.setIcon(new ImageIcon(getClass().getResource("/img/disco "+ ancho +".png")));
         //pone el disco donde corresponde para iniciar

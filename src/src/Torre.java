@@ -13,12 +13,12 @@ import javax.swing.ImageIcon;
  *
  * @author dieez
  */
-public class Imagen extends javax.swing.JPanel {
+public class Torre extends javax.swing.JPanel {
     
         ImageIcon torre = new ImageIcon(getClass().getResource("/img/torre.png"));
         ImageIcon fondo = new ImageIcon(getClass().getResource("/img/fondo.png"));
     
-    public Imagen() {
+    public Torre() {
         this.setSize(600, 400); //se selecciona el tamaño del panel
         
     }

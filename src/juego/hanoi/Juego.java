@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import src.Creacion;
 import src.Disco;
-import src.Imagen;
+import src.Torre;
 import src.MatrizTorres;
 import src.Solucion;
 
@@ -57,11 +57,21 @@ public class Juego extends javax.swing.JFrame {
         
         initComponents();
         
-        creacion = new Creacion( this.jPanel,this.txtMovimientos); 
-        
-
+        //da como resultado los movimentos necesarios para la solucion
         String aux = (String) opDiscos.getSelectedItem();
-        int discos = Integer.valueOf(aux);        
+        ArrayList<String> lista = new ArrayList<String>();
+        int discos = Integer.valueOf(aux);
+              
+                
+        Solucion.torresHanoi(discos, 1, 2, 3,lista);
+        int movimientos = lista.size(); 
+        
+        txtMovimientosNecesarios.setText(String.valueOf(movimientos));
+        
+        
+        creacion = new Creacion( this.jPanel,this.txtMovimientos, this.txtMovimientosNecesarios); 
+        
+       
         
         
         creacion.ponerDiscos(discos);
@@ -73,7 +83,7 @@ public class Juego extends javax.swing.JFrame {
         this.setTorres(torres);
         
         //dibuja las torres
-        Imagen imagen = new Imagen();
+        Torre imagen = new Torre();
         jPanel.add(imagen);
         jPanel.repaint();
         
@@ -241,9 +251,9 @@ public class Juego extends javax.swing.JFrame {
         jPanel.removeAll();
         jPanel.repaint();
         
-       
+       txtMovimientos.setText("0");
         
-        creacion = new Creacion( this.jPanel,this.txtMovimientos); 
+        creacion = new Creacion( this.jPanel,this.txtMovimientos, this.txtMovimientosNecesarios); 
         
         
         String aux = (String) opDiscos.getSelectedItem();
@@ -254,7 +264,7 @@ public class Juego extends javax.swing.JFrame {
         
         
          //dibuja las torres
-        Imagen imagen = new Imagen();
+        Torre imagen = new Torre();
         jPanel.add(imagen);
         jPanel.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
