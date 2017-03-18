@@ -401,7 +401,7 @@ public class Disco extends JLabel implements MouseListener, MouseMotionListener,
         int movidas = Integer.valueOf(txt);
         
         String txt2 = this.solucion.getText();
-        int solucion = Integer.valueOf(txt);
+        int solucion = Integer.valueOf(txt2);
         Juego juego = new Juego();
         
         //gana si hay algo en el tope de la torre 3 dependiendo de la cantidad de discos
